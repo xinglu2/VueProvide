@@ -1,26 +1,40 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <Toolbar v-model="theme"></Toolbar>
+    <button @click="changeTheme">切换{{ this.testA.theme }}</button>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Toolbar from './components/Toolbar.vue';
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  }
-}
-</script>
+  data() {
+    return {
+      testA: {
+        theme: 'white',
+      },
+    };
+  },
+  methods: {
+    changeTheme() {
+      if (this.testA.theme === 'white') {
+        this.testA.theme = 'dark';
+      } else {
+        this.testA.theme = 'white';
+      }
+    },
+  },
+  provide() {
+    return {
+      test1: this.testA,
+      changeTheme: this.changeTheme,
+    };
+  },
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+  components: {
+    Toolbar,
+  },
+};
+</script>
